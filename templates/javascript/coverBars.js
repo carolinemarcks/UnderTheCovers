@@ -53,6 +53,7 @@ function drawSongBars(){
 	    .attr("x", function(d, i) { return textStart + (textJump * i); })
 	    .attr("y", barHeight / 2)
 	    .attr("dy", ".35em")
+	   	.on("click", moveProgressBar)
 	    .text(function(d) { return d.artist; });
 }
 
@@ -95,14 +96,35 @@ function clearProgressBar(){
 	    .attr("style", "fill:" + bodyBackgroundColor);	
 */
 }
-    var drag = d3.behavior.drag()
-        .on("drag", function(d,i) {
-            d.x += d3.event.dx
-            //d.y += d3.event.dy
-            d3.select(this).attr("transform", function(d,i){
-                return "translate(" + [ d.x,d.y ] + ")"
-            })
-        });
+/*
+var drag = d3.behavior.drag()
+    .on("drag", function(d,i) {
+        d.x += d3.event.dx
+        d3.select(this).attr("transform", function(d,i){
+            return "translate(" + [ d.x,d.y ] + ")"
+        })
+    });
+*/
+/*
+
+var drag = d3.behavior.drag()
+.on("drag", function( d, i) {
+    var selection = d3.selectAll( '.selected');
+ 
+    if( selection[0].indexOf( this)==-1) {
+        selection.classed( "selected", false);
+        selection = d3.select( this);
+        selection.classed( "selected", true);
+    } 
+ 
+    selection.attr("transform", function( d, i) {
+        d.x += d3.event.dx;
+        //d.y += d3.event.dy;
+        return "translate(" + [ d.x,d.y ] + ")"
+    })
+    d3.event.sourceEvent.stopPropagation();
+});
+*/
 
 function drawProgressBar(time, color){
 	//clearProgressBar();
