@@ -1,11 +1,11 @@
 var colors = ["steelblue", "red", "green"];
 
 var covers = [
-		{artist  : "Michael Jackson",
+		{artist  : "Jackson Five",
+		 seconds : 230},
+		{artist  : "Lake Street Dive",
 		 seconds : 240},
-		{artist  : "Bjork",
-		 seconds : 223},
-		{artist  : "R Kelly",
+		{artist  : "Z-Trip Remix",
 		 seconds : 250}
 		];
 
@@ -47,3 +47,5 @@ function updateChart(){
 	    .attr("dy", ".35em")
 	    .text(function(d) { return d.artist; });
 }
+
+window.addEventListener('load', updateChart, false);
