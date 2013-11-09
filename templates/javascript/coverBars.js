@@ -105,14 +105,12 @@ function drawProgressBar(time, color){
 	    .attr("width", progressBarWidth)
 	    .attr("height", progressBarHeight)
 	    .attr("style", "fill:black");
-
-
-	this.time++;
 }
 
 function startPlaying(){
 	drawSongBars();
-	setInterval(drawProgressBar,500);
+	setInterval(drawProgressBar,250);
+	setInterval(function(){this.time++;}, 1000)
 }
 
 
