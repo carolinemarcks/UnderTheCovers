@@ -5,6 +5,7 @@ from flask import url_for
 from pyechonest import config
 from pyechonest import artist
 from pyechonest import song
+from pyechonest import track
 
 
 config.ECHO_NEST_API_KEY = "Z5YYKIYYQG3NZEXWN"
@@ -19,12 +20,14 @@ def hello():
 @app.route("/iwub")
 def iwub(title=None):
   url_for('static',filename="*")
+
   '''
   lsd = song.search(title="I want you back",artist="Lake Street Dive", buckets=["id:rdio-US"])
-  print lsd
   for entry in lsd:
-   print entry.artist_name
-
+    for t in entry.get_tracks('spotify-WW'):
+      print t.id
+    for t in entry.get_tracks('rdio-US'):
+      print t.id
   jsf = song.search(title="I want you back",artist="The Jackson 5", buckets=["id:rdio-US"])
   print jsf
   for entry in jsf:
