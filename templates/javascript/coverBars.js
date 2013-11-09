@@ -1,4 +1,4 @@
-var colors = ["steelblue", "red", "green"];
+var colors = ["FF6840", "2D3B83", "22884f"];
 
 var covers = [
 		{artist  : "Jackson Five",
@@ -16,7 +16,7 @@ var width = 800,
     barHeightBuffer = barHeight * .2,
     barHeightWithBuffer = barHeightBuffer + barHeight,
     progressBarHeight = barHeight - 1,
-    progressBarWidth = 5,
+    progressBarWidth = 10,
     bodyBackgroundColor = "#999966";
 
     this.time = 0;
@@ -47,7 +47,7 @@ function drawSongBars(){
 	bar.append("rect")
 	    .attr("width", function (d) { return scale(d.seconds)})
 	    .attr("height", barHeight - 1)
-	    .on("click", moveProgressBar);
+	    .on("click", moveProgressBar)
 
 	bar.append("text")
 	    .attr("x", function(d, i) { return textStart + (textJump * i); })
@@ -58,6 +58,10 @@ function drawSongBars(){
 
 function moveProgressBar(d, i){
 	song = i;
+}
+
+function dragProgressBar(a, b, c, d){
+	console.log("a: " + a + ", b: " + b + ", c: " + c + ",d :" + d)
 }
 
 function clearSongBars(){
@@ -91,6 +95,14 @@ function clearProgressBar(){
 	    .attr("style", "fill:" + bodyBackgroundColor);	
 */
 }
+    var drag = d3.behavior.drag()
+        .on("drag", function(d,i) {
+            d.x += d3.event.dx
+            //d.y += d3.event.dy
+            d3.select(this).attr("transform", function(d,i){
+                return "translate(" + [ d.x,d.y ] + ")"
+            })
+        });
 
 function drawProgressBar(time, color){
 	//clearProgressBar();
@@ -104,7 +116,8 @@ function drawProgressBar(time, color){
 		.attr("y", barHeightWithBuffer * song)
 	    .attr("width", progressBarWidth)
 	    .attr("height", progressBarHeight)
-	    .attr("style", "fill:black");
+	    .attr("style", "fill:black")
+	    .call(drag);
 }
 
 function startPlaying(){
